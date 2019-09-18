@@ -29,7 +29,7 @@ namespace Ls.WebServer
         public void ConfigureServices(IServiceCollection services)
         {
             //在服务中配置此绑定项
-            services.Configure<DatabaseConfiguration>("DatabaseConfiguration",Configuration);
+            //services.Configure<DatabaseConfiguration>("DatabaseConfiguration",Configuration);
             services.AddTransient<IBookCategoryRepository, BookCategoryRepository>();
             services.AddTransient<IBookCategoryService, BookCategoryService>();
 
