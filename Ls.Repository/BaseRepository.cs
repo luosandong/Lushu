@@ -40,6 +40,8 @@ namespace Ls.Repository
        
         int Count(string sql, Dictionary<string, object> parameters = null);
 
+        int ExecuteSql(string sql, Dictionary<string, object> parameters = null);
+
     }
 
     public class BaseRepository<T> : IBaseRepository<T> where T : class, new()
@@ -136,6 +138,9 @@ namespace Ls.Repository
             return DbContext.GetBySql<T>(sql, parameters);
         }
 
-
+        public int ExecuteSql(string sql, Dictionary<string, object> parameters = null)
+        {
+            return DbContext.ExecuteSql(sql, parameters);
+        }
     }
 }

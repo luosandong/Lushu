@@ -12,6 +12,7 @@ namespace CommonDal
         string Update<T>(T model);
         string Get(Type type);
         string Delete<T>(T model);
+        string GetCondition(Dictionary<string, object> QueryParams);
     }
 
     public class SqlGenerator
@@ -121,6 +122,16 @@ namespace CommonDal
             return sql;
         }
 
+        public string GetCondition(Dictionary<string, object> QueryParams)
+        {
+            string condition = " WHERE 1=1 ";
+            foreach (var kv in QueryParams)
+            {
+                condition += $" AND {OpenQuote}{kv.Key}{CloseQuote}={ParameterPrefix}{kv.Key} ";
+            }
+
+            return condition;
+        }
         public string Insert<T>(T model)
         {
             string sql = $"insert into {GetTableName(model.GetType())} ({BuildField(GetProperties(model.GetType())).Item1}) values ({BuildField(GetProperties(model.GetType())).Item2});";
@@ -188,8 +199,9 @@ namespace CommonDal
             return string.Join(",", fields.ToArray());
         }
 
-       
-
-        
+        public string GetCondition(Dictionary<string, object> QueryParams)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

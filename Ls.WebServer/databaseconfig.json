@@ -1,4 +1,4 @@
 {
-  "ConnectionString": "server=127.0.0.1;port=3306;uid=root;pwd=P@ssW0rd;database=lushu;",
+  "ConnectionString": "server=114.55.243.245;port=3306;uid=lsdba;pwd=@2019Luo.sd.comQAZ;database=lushu;",
   "DatabaseType": 5
 }

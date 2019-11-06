@@ -6,25 +6,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\dist\js\app.js" />
-    <None Include="wwwroot\dist\js\libs\jquery-3.4.1.min.js" />
-    <None Include="wwwroot\gulpfile.js" />
-    <None Include="wwwroot\src\css\common.css" />
-    <None Include="wwwroot\src\css\libs\normalize.css" />
-    <None Include="wwwroot\src\index.html" />
-    <None Include="wwwroot\src\js\app.js" />
+    <Compile Remove="wwwroot\dist\**" />
+    <Compile Remove="wwwroot\src\**" />
+    <Content Remove="wwwroot\dist\**" />
+    <Content Remove="wwwroot\src\**" />
+    <EmbeddedResource Remove="wwwroot\dist\**" />
+    <EmbeddedResource Remove="wwwroot\src\**" />
+    <None Remove="wwwroot\dist\**" />
+    <None Remove="wwwroot\src\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ls.Common\Ls.Common.csproj" />
     <ProjectReference Include="..\Ls.Models\Ls.Models.csproj" />
     <ProjectReference Include="..\Ls.Service\Ls.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
 
 </Project>

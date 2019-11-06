@@ -1,9 +1,10 @@
 ﻿using CommonDal;
 using System;
+using System.Collections.Generic;
 
 namespace Ls.Models
 {
-    [Table(Name = "book_category")]
+    [Table(Name = "bookcategory")]
     public class BookCategory
     {
         [Key]
@@ -14,5 +15,7 @@ namespace Ls.Models
         [MapIgnore]
         public int Layer { get; set; }
         public int Sequence { get; set; }
+        [MapIgnore]
+        public List<Book> Books { get; set; }
     }
 }

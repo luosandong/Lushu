@@ -59,8 +59,10 @@ namespace CommonDal
             using (_connection = _dbConfiguration.CreateDbConnection())
             {
                 var sql = _dbConfiguration.SqlGenerator.Get(typeof(T));
-                _connection.Close();
-                _connection.Dispose();
+                if (parameters!=null)
+                {
+                    sql += _dbConfiguration.SqlGenerator.GetCondition(parameters);
+                }
                 return _connection.Query<T>(sql, parameters).FirstOrDefault();
 
             }
@@ -118,7 +120,30 @@ namespace CommonDal
             }
         }
 
-       
 
+        public int ExecuteSql(string sql, Dictionary<string, object> parameters = null)
+        {
+            try
+            {
+                using (_connection = _dbConfiguration.CreateDbConnection())
+                {
+                    _connection.Open();
+                    var results = _connection.Execute(sql, parameters);
+                    _connection.Close();
+                    return results;
+
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                _connection.Close();
+                _connection.Dispose();
+            }
+        }
     }
 }

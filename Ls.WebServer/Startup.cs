@@ -29,23 +29,7 @@ namespace Ls.WebServer
         public void ConfigureServices(IServiceCollection services)
         {
             //在服务中配置此绑定项
-            //services.Configure<DatabaseConfiguration>("DatabaseConfiguration",Configuration);
-            services.AddTransient<IBookCategoryRepository, BookCategoryRepository>();
-            services.AddTransient<IBookCategoryService, BookCategoryService>();
-
-            // 添加跨域支持
-            services.AddCors(options =>
-            {
-                options.AddPolicy("any", builder =>
-                {
-                    builder.AllowAnyOrigin() //允许任何来源的主机访问
-                        //builder.WithOrigins("http://localhost:8080") ////允许http://localhost:8080的主机访问
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials();//指定处理cookie
-
-                });
-            });
+            services.RegiterTypes();
             services.AddSpaStaticFiles();
             services.AddRouting();
             services.AddMvc();
@@ -55,10 +39,11 @@ namespace Ls.WebServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            app.UseDeveloperExceptionPage();
             var defaultFilesOptions = new DefaultFilesOptions();
             defaultFilesOptions.DefaultFileNames.Clear();
             defaultFilesOptions.DefaultFileNames.Add("index.html");

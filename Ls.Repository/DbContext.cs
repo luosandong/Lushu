@@ -14,6 +14,7 @@ namespace Ls.Repository
         void Delete<T>(T entity, int? commandTimeout = null) where T : class;
         IList<T> GetBySql<T>(string sql, Dictionary<string, object> parameters = null) where T : class;
         IList<T> GetList<T>(Dictionary<string, object> parameters = null) where T : class;
+        int ExecuteSql(string sql ,Dictionary<string, object> parameters = null);
     }
     public class DbContext : IDbContext
     {
@@ -29,9 +30,18 @@ namespace Ls.Repository
              _dataAccessor.Delete(entity);
         }
 
+        public int ExecuteSql(string sql ,Dictionary<string, object> parameters = null)
+        {
+           return _dataAccessor.ExecuteSql(sql, parameters);
+        }
+
         public T Get<T>(dynamic id, int? commandTimeout = null) where T : class
         {
-            throw new NotImplementedException();
+            var par = new Dictionary<string, object>
+            {
+                { "id", id }
+            };
+            return _dataAccessor.Get<T>(par);
         }
 
         public IList<T> GetBySql<T>(string sql, Dictionary<string, object> parameters = null) where T : class

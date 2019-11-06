@@ -11,7 +11,7 @@ namespace Ls.WebServer.Controllers
         public IActionResult Index()
         {
             //return Redirect("wwwroot/src/index.html");
-            return View("~/wwwroot/src/index.html");
+            return View("~/wwwroot/index.html");
         }
     }
 }

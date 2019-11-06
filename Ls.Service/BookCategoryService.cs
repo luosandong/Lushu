@@ -16,16 +16,26 @@ namespace Ls.Service
     }
     public class BookCategoryService: IBookCategoryService
     {
-        private IBookCategoryRepository _bookCategoryRepository;
+        private IBookCategoryRepository _bookCategoryRepository; IBookRepository bookRepos;
 
-        public BookCategoryService(IBookCategoryRepository bookCategoryRepository)
+        public BookCategoryService(IBookCategoryRepository bookCategoryRepository, IBookRepository bookRepos)
         {
             _bookCategoryRepository = bookCategoryRepository;
+            this.bookRepos = bookRepos;
         }
 
         public IList<BookCategory> GetAll()
         {
-            return _bookCategoryRepository.GetAll()?.ToList();
+            var categories = _bookCategoryRepository.GetAll()?.ToList();
+            foreach (var item in categories)
+            {
+                var parm = new Dictionary<string, object>
+                {
+                    { "Categoryid", item.Id }
+                };
+                item.Books = bookRepos.GetBySql("select * from bookinfo where categoryid=@Categoryid;", parm)?.ToList<Book>();
+            }
+            return categories;
         }
 
         public void Insert(BookCategory bookCategory)
